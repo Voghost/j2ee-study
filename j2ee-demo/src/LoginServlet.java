@@ -1,6 +1,7 @@
 import sun.rmi.runtime.Log;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,7 +42,7 @@ public class LoginServlet extends HttpServlet {
     }
 
 
-    /**
+    /*
      * 重写 service
      *
      * @param request
@@ -49,7 +50,7 @@ public class LoginServlet extends HttpServlet {
      * @throws IOException
      */
     @Override
-    protected void service(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         System.out.println("3. ========== service ============= 函数");
 
@@ -62,13 +63,16 @@ public class LoginServlet extends HttpServlet {
         String name = request.getParameter("name");
         String password = request.getParameter("password");
 
-        if (name.equals("admin") && password.equals("admin")) {
-            response.getWriter().println("<div style = 'color:green;'>success</div>");
-            response.getWriter().println("name: " + name + "<br/>");
-            response.getWriter().println("password: " + password);
-        } else {
-            response.getWriter().println("<div style = 'color:red;'>fail</div>" + "<br/>");
-            response.getWriter().println("name: " + name + "<br/>");
+        if (name.equals("admin") && password.equals("admin")) { //密码正确
+            /**
+             * 服务器内跳转
+             */
+            request.getRequestDispatcher("success.html").forward(request, response);
+        } else { //密码错误
+            /**
+             * 客户端中跳转
+             */
+            response.sendRedirect("fail.html");
         }
     }
 
@@ -83,6 +87,9 @@ public class LoginServlet extends HttpServlet {
     }
 
 
+    /**
+     * 垃圾回收
+     */
 
 
 }

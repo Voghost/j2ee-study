@@ -4,11 +4,14 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
+    <!--注册servlet name-->
     <servlet>
         <servlet-name>HelloServlet</servlet-name>
+        <!--类的位置-->
         <servlet-class>HelloServlet</servlet-class>
     </servlet>
 
+    <!--设置/hello 映射给HelloServlet-->
     <servlet-mapping>
         <servlet-name>HelloServlet</servlet-name>
         <url-pattern>/hello</url-pattern>
